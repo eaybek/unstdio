@@ -2,39 +2,7 @@ import io
 import sys
 from .tee import Tee
 import threading
-
-
-class Inp(io.StringIO):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def read(self, *args, **kwargs):
-        super().read(self, *args, **kwargs)
-
-    def write(self, *args, **kwargs):
-        super().write(*args, **kwargs)
-
-
-class Out(io.StringIO):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def read(self, *args, **kwargs):
-        super().read(self, *args, **kwargs)
-
-    def write(self, *args, **kwargs):
-        super().write(*args, **kwargs)
-
-
-class Err(io.StringIO):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def read(self, *args, **kwargs):
-        super().read(self, *args, **kwargs)
-
-    def write(self, *args, **kwargs):
-        super().write(*args, **kwargs)
+from unstdio.handlers import Inp, Out, Err
 
 
 class Environment(object):
@@ -53,14 +21,21 @@ class Unstdio(object):
     rlock = threading.RLock()
 
     def __init__(
-        self,
-        stdin_file=None,
-        stdout_file=None,
-        stderr_file=None,
+        self, stdin=None, stdout=None, stderr=None
     ):
-        self.stdin = Inp()
-        self.stdout = Out()
-        self.stderr = Err()
+
+        if stdin is None:
+            self.stdin = Inp()
+        else:
+            self.stdin = stdin
+        if stdout is None:
+            self.stdout = Out()
+        else:
+            self.stdout = stdout
+        if stderr is None:
+            self.stderr = Err()
+        else:
+            self.stderr = stderr
         self.old_stdin = sys.stdin
         self.old_stdout = sys.stdout
         self.old_stderr = sys.stderr

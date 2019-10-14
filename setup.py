@@ -1,14 +1,20 @@
+import os
 import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open(os.path.join("sample", "sample.py"), "r") as fh:
+    long_description += fh.read()
+
 setuptools.setup(
     name="unstdio",
-    version="0.0.2",
+    version="0.0.3",
     author="Erdem Aybek",
     author_email="eaybek@gmail.com",
-    description=" ".join([""]),
+    description=" ".join(
+        ["unstdio for inplace manipulation of stdio"]
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/eaybek/unstdio",
