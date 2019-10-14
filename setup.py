@@ -4,12 +4,14 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+long_description += "```python3\n"
 with open(os.path.join("sample", "sample.py"), "r") as fh:
     long_description += fh.read()
+long_description += "\n```"
 
 setuptools.setup(
     name="unstdio",
-    version="0.0.3",
+    version="0.0.4",
     author="Erdem Aybek",
     author_email="eaybek@gmail.com",
     description=" ".join(
